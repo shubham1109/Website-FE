@@ -278,7 +278,7 @@ const Contact = () => {
                 <div className="mt-4">
                   <ReCAPTCHA
                     ref={recaptchaRef}
-                    sitekey="6Les_AYtAAAAAHboDmcYzAhXZXdouokh2vw3NW4P"
+                    sitekey="6Les_AYtAAAAAAiNzlL5e5qLp0Zs_vSsirsQtfKA"
                     onChange={(token) => setCaptchaToken(token)}
                     theme="dark"
                   />
