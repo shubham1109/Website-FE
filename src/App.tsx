@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Routes, Route } from 'react-router';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import Navigation from './sections/Navigation';
 import Footer from './sections/Footer';
@@ -46,15 +47,17 @@ function App() {
   }, []);
 
   return (
-    <div className="relative" style={{ background: '#0A0A0A' }}>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      </Routes>
-      <Footer />
-      <CookieConsent />
-    </div>
+    <GoogleReCaptchaProvider reCaptchaKey="6Les_AYtAAAAAHboDmcYzAhXZXdouokh2vw3NW4P">
+      <div className="relative" style={{ background: '#0A0A0A' }}>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        </Routes>
+        <Footer />
+        <CookieConsent />
+      </div>
+    </GoogleReCaptchaProvider>
   );
 }
 

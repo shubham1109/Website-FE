@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,8 +50,7 @@ const Contact = () => {
   const [country, setCountry] = useState('');
   const [purpose, setPurpose] = useState('');
 
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -93,12 +92,14 @@ const Contact = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captchaToken) {
-      setErrorMsg('Please complete the reCAPTCHA.');
+    if (!executeRecaptcha) {
+      setErrorMsg('reCAPTCHA not ready. Please try again.');
       return;
     }
+
+    const captchaToken = await executeRecaptcha('contact_form');
 
     setIsSubmitting(true);
     setErrorMsg('');
@@ -127,23 +128,17 @@ const Contact = () => {
         setEmail('');
         setCountry('');
         setPurpose('');
-        setCaptchaToken(null);
-        recaptchaRef.current?.reset();
 
         setTimeout(() => setSubmitted(false), 5000);
       } else {
         setErrorMsg(result.message || 'Something went wrong.');
-        recaptchaRef.current?.reset();
-        setCaptchaToken(null);
       }
     } catch (error) {
       setErrorMsg('Failed to send message.');
-      recaptchaRef.current?.reset();
-      setCaptchaToken(null);
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [executeRecaptcha, name, email, country, purpose]);
 
   return (
     <section
@@ -275,14 +270,6 @@ const Contact = () => {
                   <div className="text-red-500 text-sm mt-2">{errorMsg}</div>
                 )}
 
-                <div className="mt-4">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey="6Les_AYtAAAAAAiNzlL5e5qLp0Zs_vSsirsQtfKA"
-                    onChange={(token) => setCaptchaToken(token)}
-                    theme="dark"
-                  />
-                </div>
 
                 <button
                   type="submit"
