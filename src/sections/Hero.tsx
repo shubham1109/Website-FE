@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import HeroCanvas from './HeroCanvas';
-import { Play } from 'lucide-react';
+//import { Play } from 'lucide-react';
 
 const Hero = () => {
   const textRef = useRef<HTMLDivElement>(null);
