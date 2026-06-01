@@ -77,7 +77,7 @@ const Hero = () => {
           className="hero-animate text-center max-w-[640px] mt-6 opacity-0"
           style={{ color: '#A3A3A3', fontSize: '18px', lineHeight: 1.6 }}
         >
-          Powered by non-thermal plasma synthesis, our modular reactors deliver carbon-free ammonia exactly where you need it. Designed for extreme flexibility and intermittency, our systems operate near room temperature and pressure—setting a new standard for renewable production.
+          Powered by non-thermal plasma synthesis, our modular reactors deliver carbon-free ammonia exactly where you need it.
         </p>
 
         <div className="hero-animate flex items-center gap-4 mt-8 opacity-0">
