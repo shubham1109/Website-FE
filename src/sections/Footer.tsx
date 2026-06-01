@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Logo */}
         <div className="flex items-center">
-          <img src="/images/logo.png" alt="Faraday Earth" className="h-8 w-auto object-contain" />
+          <img src="/images/logo.png" alt="Faraday Earth" className="w-auto object-contain" style={{ height: 'calc(2rem * 1.3)' }} />
         </div>
 
         {/* Copyright */}

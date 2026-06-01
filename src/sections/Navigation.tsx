@@ -29,7 +29,7 @@ const Navigation = () => {
       <div className="w-full max-w-[1280px] mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center">
-          <img src="/images/logo.png" alt="Faraday Earth" className="h-10 w-auto object-contain" />
+          <img src="/images/logo.png" alt="Faraday Earth" className="w-auto object-contain" style={{ height: 'calc(2.5rem * 1.3)' }} />
         </a>
 
         {/* Center Links */}
