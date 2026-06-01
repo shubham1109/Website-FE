@@ -2,14 +2,13 @@ import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Routes, Route } from 'react-router';
 
 import Navigation from './sections/Navigation';
-import Hero from './sections/Hero';
-import Technology from './sections/Technology';
-import FilmShowcase from './sections/FilmShowcase';
-import Impact from './sections/Impact';
-import Contact from './sections/Contact';
 import Footer from './sections/Footer';
+import Home from './pages/Home';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import CookieConsent from './components/CookieConsent';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,12 +48,12 @@ function App() {
   return (
     <div className="relative" style={{ background: '#0A0A0A' }}>
       <Navigation />
-      <Hero />
-      <Technology />
-      <FilmShowcase />
-      <Impact />
-      <Contact />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      </Routes>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }

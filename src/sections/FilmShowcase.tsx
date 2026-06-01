@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -7,6 +7,15 @@ gsap.registerPlugin(ScrollTrigger);
 const FilmShowcase = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
+  const [wordIndex, setWordIndex] = useState(0);
+  const words = ['Fertilizer', 'Food', 'Energy', 'Shipping'];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % words.length);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -75,7 +84,7 @@ const FilmShowcase = () => {
               color: '#F5F5F5',
             }}
           >
-            Engineering the Future of Fertilizer
+            Engineering the Future of <span style={{ color: '#4ADE80' }}>{words[wordIndex]}</span>
           </h2>
         </div>
 

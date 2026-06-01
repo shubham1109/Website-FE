@@ -29,10 +29,9 @@ const Navigation = () => {
     >
       <div className="w-full max-w-[1280px] mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex flex-col leading-none">
-          <span className="text-[#F5F5F5] font-bold text-[16px] tracking-tight">FARADAY</span>
-          <span className="text-[#4ADE80] font-bold text-[16px] tracking-tight">EARTH</span>
-        </div>
+        <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center">
+          <img src="/images/logo.png" alt="Faraday Earth" className="h-10 w-auto object-contain" />
+        </a>
 
         {/* Center Links */}
         <div className="hidden md:flex items-center gap-8">

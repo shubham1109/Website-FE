@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +42,16 @@ const countries = [
 const Contact = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [country, setCountry] = useState('');
+  const [purpose, setPurpose] = useState('');
+
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -82,10 +93,56 @@ const Contact = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    if (!captchaToken) {
+      setErrorMsg('Please complete the reCAPTCHA.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMsg('');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '1c6db9b1-6d99-4f9c-87e5-a5cfdc86dfa1',
+          name,
+          email,
+          country,
+          purpose,
+          'g-recaptcha-response': captchaToken,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setCountry('');
+        setPurpose('');
+        setCaptchaToken(null);
+        recaptchaRef.current?.reset();
+
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setErrorMsg(result.message || 'Something went wrong.');
+        recaptchaRef.current?.reset();
+        setCaptchaToken(null);
+      }
+    } catch (error) {
+      setErrorMsg('Failed to send message.');
+      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -113,7 +170,7 @@ const Contact = () => {
               className="mt-4"
               style={{ color: '#A3A3A3', fontSize: '16px', lineHeight: 1.6 }}
             >
-              Whether you&rsquo;re a fertilizer producer, shipping operator, or energy
+              Whether you&rsquo;re a fertilizer producer, shipping operator, investor, or energy
               utility &mdash; we want to hear from you.
             </p>
 
@@ -159,6 +216,8 @@ const Contact = () => {
                     <input
                       type="text"
                       required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       className="w-full bg-transparent border-b border-white/20 py-3 text-[#F5F5F5] outline-none focus:border-[#4ADE80] transition-colors duration-300"
                       placeholder="Your name"
                     />
@@ -170,6 +229,8 @@ const Contact = () => {
                     <input
                       type="email"
                       required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="w-full bg-transparent border-b border-white/20 py-3 text-[#F5F5F5] outline-none focus:border-[#4ADE80] transition-colors duration-300"
                       placeholder="your@email.com"
                     />
@@ -181,6 +242,9 @@ const Contact = () => {
                     Country
                   </label>
                   <select
+                    required
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
                     className="w-full bg-transparent border-b border-white/20 py-3 text-[#F5F5F5] outline-none focus:border-[#4ADE80] transition-colors duration-300 appearance-none cursor-pointer"
                     style={{ background: '#171717' }}
                   >
@@ -199,16 +263,33 @@ const Contact = () => {
                   </label>
                   <textarea
                     rows={4}
+                    required
+                    value={purpose}
+                    onChange={(e) => setPurpose(e.target.value)}
                     className="w-full bg-transparent border-b border-white/20 py-3 text-[#F5F5F5] outline-none focus:border-[#4ADE80] transition-colors duration-300 resize-none"
                     placeholder="Tell us about your project or inquiry..."
                   />
                 </div>
 
+                {errorMsg && (
+                  <div className="text-red-500 text-sm mt-2">{errorMsg}</div>
+                )}
+
+                <div className="mt-4">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey="6Les_AYtAAAAAHboDmcYzAhXZXdouokh2vw3NW4P"
+                    onChange={(token) => setCaptchaToken(token)}
+                    theme="dark"
+                  />
+                </div>
+
                 <button
                   type="submit"
-                  className="bg-[#4ADE80] text-[#0A0A0A] font-medium px-8 py-3 rounded-full hover:scale-[1.02] transition-transform duration-300 mt-4"
+                  disabled={isSubmitting}
+                  className="bg-[#4ADE80] text-[#0A0A0A] font-medium px-8 py-3 rounded-full hover:scale-[1.02] transition-transform duration-300 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             )}

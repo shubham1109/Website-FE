@@ -8,8 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 const cards = [
   {
     icon: Zap,
-    title: 'Electrochemical Efficiency',
-    desc: 'Direct ammonia synthesis from air and water at ambient pressure, bypassing the energy-intensive Haber-Bosch process.',
+    title: 'Non-Thermal Plasma Synthesis',
+    desc: 'We synthesize ammonia directly from air and water. Designed for the renewable era, our technology operates near room temperature and pressure, offering unmatched flexibility to seamlessly integrate with intermittent green energy.',
   },
   {
     icon: Container,
@@ -24,7 +24,7 @@ const cards = [
   {
     icon: TrendingUp,
     title: 'Cost Trajectory',
-    desc: 'With declining renewable energy prices, our green ammonia reaches cost parity with grey ammonia by 2028.',
+    desc: 'As renewable energy becomes more affordable, we are bridging the economic gap and producing directly at the point of consumption to eliminate supply chain friction.',
   },
 ];
 
@@ -106,7 +106,7 @@ const Technology = () => {
             className="tech-header mt-4 mx-auto max-w-[640px] opacity-0"
             style={{ color: '#A3A3A3', fontSize: '16px', lineHeight: 1.6 }}
           >
-            Our proprietary electrochemical cells combine nitrogen from the air
+            Our proprietary non-thermal plasma synthesis reactors combine nitrogen from the air
             with hydrogen from water &mdash; powered entirely by renewable electricity.
             No fossil fuels. No carbon emissions.
           </p>

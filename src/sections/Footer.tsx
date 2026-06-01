@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 const Footer = () => {
   return (
     <footer
@@ -9,9 +11,8 @@ const Footer = () => {
     >
       <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Logo */}
-        <div className="flex flex-col leading-none">
-          <span className="text-[#F5F5F5] font-bold text-sm tracking-tight">FARADAY</span>
-          <span className="text-[#4ADE80] font-bold text-sm tracking-tight">EARTH</span>
+        <div className="flex items-center">
+          <img src="/images/logo.png" alt="Faraday Earth" className="h-8 w-auto object-contain" />
         </div>
 
         {/* Copyright */}
@@ -21,22 +22,13 @@ const Footer = () => {
 
         {/* Links */}
         <div className="flex items-center gap-6">
-          <a
-            href="https://faraday.earth/privacy-policy"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/privacy-policy"
             className="text-xs hover:text-[#4ADE80] transition-colors duration-300"
             style={{ color: '#A3A3A3' }}
           >
             Privacy Policy
-          </a>
-          <a
-            href="#"
-            className="text-xs hover:text-[#4ADE80] transition-colors duration-300"
-            style={{ color: '#A3A3A3' }}
-          >
-            Terms
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

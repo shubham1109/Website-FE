@@ -207,7 +207,7 @@ const Impact = () => {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium" style={{ color: '#4ADE80' }}>
-                Green Ammonia (Faraday Electrochemical)
+                Green Ammonia (Faraday Non-Thermal Plasma)
               </span>
               <span className="text-sm font-mono" style={{ color: '#4ADE80' }}>
                 ~0.0 t CO2 / t NH3
