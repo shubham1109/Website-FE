@@ -27,7 +27,7 @@ const Hero = () => {
 
   const handleExplore = (e: React.MouseEvent) => {
     e.preventDefault();
-    const el = document.getElementById('technology');
+    const el = document.getElementById('film-showcase');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -85,9 +85,9 @@ const Hero = () => {
             onClick={handleExplore}
             className="bg-[#4ADE80] text-[#0A0A0A] font-medium px-8 py-3 rounded-full hover:scale-[1.02] hover:brightness-110 transition-all duration-300"
           >
-            Explore Our Technology
+            Watch the Film
           </button>
-          <a
+          {/* <a
             href="#film-showcase"
             onClick={(e) => {
               e.preventDefault();
@@ -97,7 +97,7 @@ const Hero = () => {
           >
             <Play size={16} />
             <span className="text-sm font-medium hover:underline">Watch the Film</span>
-          </a>
+          </a> */}
         </div>
       </div>
     </section>

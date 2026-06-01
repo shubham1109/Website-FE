@@ -22,8 +22,8 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center transition-all duration-300 ${scrolled
-          ? 'bg-[#171717]/80 backdrop-blur-xl'
-          : 'bg-transparent'
+        ? 'bg-[#171717]/80 backdrop-blur-xl'
+        : 'bg-transparent'
         }`}
     >
       <div className="w-full max-w-[1280px] mx-auto px-6 flex items-center justify-between">
@@ -36,9 +36,9 @@ const Navigation = () => {
         <div className="hidden md:flex items-center gap-8">
           {[
             // { label: 'Technology', target: 'technology' },
-            { label: 'Technology', target: 'film-showcase' },
+            { label: '', target: 'film-showcase' },
             // { label: 'Impact', target: 'impact' },
-            { label: 'About', target: 'contact' },
+            //{ label: 'About', target: 'contact' },
           ].map((item) => (
             <a
               key={item.target}

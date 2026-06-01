@@ -164,15 +164,15 @@ const Contact = () => {
                 color: '#F5F5F5',
               }}
             >
-              Let&rsquo;s Build a Carbon-Free Future
+              Let&rsquo;s Build a Carbon-Free Future with Green Ammonia.
             </h2>
-            <p
+            {/* <p
               className="mt-4"
               style={{ color: '#A3A3A3', fontSize: '16px', lineHeight: 1.6 }}
             >
               Whether you&rsquo;re a fertilizer producer, shipping operator, investor, or energy
               utility &mdash; we want to hear from you.
-            </p>
+            </p> */}
 
             <div className="mt-12 space-y-6">
               <div>
