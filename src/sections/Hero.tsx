@@ -81,12 +81,12 @@ const Hero = () => {
         </p>
 
         <div className="hero-animate flex items-center gap-4 mt-8 opacity-0">
-          <button
+          {/* <button
             onClick={handleExplore}
             className="bg-[#4ADE80] text-[#0A0A0A] font-medium px-8 py-3 rounded-full hover:scale-[1.02] hover:brightness-110 transition-all duration-300"
           >
             Watch the Film
-          </button>
+          </button> */}
           {/* <a
             href="#film-showcase"
             onClick={(e) => {
