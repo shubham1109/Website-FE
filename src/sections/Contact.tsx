@@ -202,7 +202,7 @@ const Contact = () => {
                 <p className="text-[#4ADE80] text-lg font-medium">Message sent successfully!</p>
               </div>
             ) : (
-              <form action='https://formspree.io/f/xpqngkgo' method='POST' className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs font-medium tracking-[0.05em] uppercase mb-2" style={{ color: '#A3A3A3' }}>
