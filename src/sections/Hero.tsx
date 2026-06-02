@@ -25,11 +25,11 @@ const Hero = () => {
     );
   }, []);
 
-  const handleExplore = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const el = document.getElementById('film-showcase');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  // const handleExplore = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   const el = document.getElementById('film-showcase');
+  //   if (el) el.scrollIntoView({ behavior: 'smooth' });
+  // };
 
   return (
     <section
