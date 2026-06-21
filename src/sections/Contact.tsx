@@ -186,7 +186,7 @@ const Contact = () => {
                   Address
                 </span>
                 <span style={{ color: '#A3A3A3' }}>
-                  251 Little Falls Drive, Wilmington, Delaware 19808
+                  2627 Hanover St, Palo Alto, CA 94304
                 </span>
               </div>
             </div>
