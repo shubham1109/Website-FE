@@ -68,7 +68,7 @@ const Supporters = () => {
           >
             Backed By
           </span>
-          <h2
+          {/* <h2
             className="supporters-header mt-4 font-semibold tracking-tight opacity-0"
             style={{
               fontSize: 'clamp(32px, 3vw, 40px)',
@@ -77,7 +77,7 @@ const Supporters = () => {
             }}
           >
             Our Supporters & Partners
-          </h2>
+          </h2> */}
         </div>
 
         <div className="supporters-logos-grid flex flex-col md:flex-row items-center justify-center gap-8 max-w-[800px] mx-auto">
@@ -97,7 +97,7 @@ const Supporters = () => {
           </div>
 
           {/* IIT Tirupati Logo */}
-          <div
+          {/* <div
             className="supporter-logo-card w-full md:w-1/2 h-[160px] rounded-xl flex items-center justify-center p-8 opacity-0 transition-all duration-300 hover:shadow-glow"
             style={{
               background: '#0A0A0A',
@@ -109,7 +109,7 @@ const Supporters = () => {
               alt="IIT Tirupati"
               className="h-20 md:h-24 w-auto object-contain brightness-95 hover:brightness-100 transition-all duration-300 rounded"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
