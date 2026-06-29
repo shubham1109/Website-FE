@@ -25,24 +25,24 @@ const founders = [
 const advisors = [
   {
     name: 'Jeff Depew',
-    role: 'Strategic Advisor',
+    role: 'Former CEO of Imara Corporation',
     image: '/images/jeff_img.jpeg',
     linkedin: 'https://www.linkedin.com/in/jeff-depew-0173/',
-    affiliation: 'Board president - Sand Hill Angels',
+    affiliation: 'Revolutionizing battery technology',
   },
   {
     name: 'Steve Schramm',
-    role: 'Strategic Advisor',
+    role: 'Early Leader at General Magic',
     image: '/images/steve_img.jpeg',
     linkedin: 'https://www.linkedin.com/in/steve-schramm-635b814/',
-    affiliation: 'Leadership - General Magic',
+    affiliation: 'First pre-IPO unicorn in Silicon Valley',
   },
   {
     name: 'Fred Moesler',
-    role: 'Industrial Advisor',
+    role: 'Former CTO - Global Thermostat & Renmatics',
     image: '/images/fred_img.jpeg',
     linkedin: 'https://www.linkedin.com/in/fred-moesler-2529752/',
-    affiliation: 'Former CTO - Global Thermostat',
+    affiliation: 'One of the first Direct Air Capture companies',
   },
 ];
 
