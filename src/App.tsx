@@ -26,9 +26,11 @@ function App() {
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    // Store the ticker callback so we can remove the exact same reference on cleanup
+    const tickerCallback = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+    gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
     // Refresh ScrollTrigger after fonts and images load
@@ -40,15 +42,13 @@ function App() {
     return () => {
       window.removeEventListener('load', handleLoad);
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(tickerCallback);
     };
   }, []);
 
   return (
     <GoogleReCaptchaProvider reCaptchaKey="6Les_AYtAAAAAHboDmcYzAhXZXdouokh2vw3NW4P">
-      <div className="relative" style={{ background: '#0A0A0A' }}>
+      <div className="relative" style={{ background: '#0A0A0A', willChange: 'scroll-position' }}>
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />

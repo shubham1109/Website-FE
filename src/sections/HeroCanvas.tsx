@@ -64,7 +64,7 @@ const HeroCanvas = () => {
       const imageData = tCtx.getImageData(0, 0, tSize, tSize).data;
       const pixels: { x: number; y: number }[] = [];
 
-      for (let i = 0; i < imageData.length; i += 16) {
+      for (let i = 0; i < imageData.length; i += 32) {
         const x = (i / 4) % tSize;
         const y = Math.floor((i / 4) / tSize);
         if (imageData[i + 3] >= 128) {
@@ -116,6 +116,9 @@ const HeroCanvas = () => {
       ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
       ctx.fillRect(0, 0, width, height);
 
+      // Draw all particles without shadowBlur (very expensive per-particle)
+      // First pass: normal particles
+      ctx.globalCompositeOperation = 'source-over';
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         p.z = Math.sin(p.angle) * ry;
@@ -124,14 +127,23 @@ const HeroCanvas = () => {
         p.y = (p.baseY - cy) * scale + cy;
         p.angle += ROTATION_SPEED;
 
-        ctx.shadowBlur = GLOW * scale;
-        ctx.shadowColor = p.color;
         ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(p.x, p.y, PARTICLE_RADIUS * scale, 0, Math.PI * 2);
         ctx.fill();
-        ctx.shadowBlur = 0;
       }
+
+      // Second pass: cheap glow using screen composite on a subset of particles
+      ctx.globalCompositeOperation = 'screen';
+      ctx.fillStyle = 'rgba(74, 222, 128, 0.08)';
+      for (let i = 0; i < particles.length; i += 4) {
+        const p = particles[i];
+        const scale = 400 / (400 + p.z);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, PARTICLE_RADIUS * scale * 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'source-over';
 
       animId = requestAnimationFrame(render);
     }
@@ -161,6 +173,8 @@ const HeroCanvas = () => {
         height: '100%',
         zIndex: 1,
         pointerEvents: 'none',
+        willChange: 'transform',
+        transform: 'translateZ(0)',
       }}
     />
   );
