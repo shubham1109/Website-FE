@@ -28,7 +28,6 @@ const HeroCanvas = () => {
     let time = 0;
     let animId: number;
 
-    const GLOW = 20;
     let ORB_RADIUS_X = 0;
     let ORB_RADIUS_Y = 0;
     const ROTATION_SPEED = 0.002;
