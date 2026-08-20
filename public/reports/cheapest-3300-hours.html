@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheapest 3,300 hours — wholesale electricity, Europe &amp; US</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:#fcfcfb; --page:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --series-1:#2a78d6; --status-warning:#fab219;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:#1a1a19; --page:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --series-1:#3987e5;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1:#1a1a19; --page:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --series-1:#3987e5;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body { background:var(--page); }
+  .viz-root { font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--page); color:var(--text-primary); min-height:100vh; padding:32px 28px 56px; }
+  .wrap { max-width:1180px; margin:0 auto; }
+
+  header.head { display:flex; justify-content:space-between; align-items:flex-start;
+    gap:24px; margin-bottom:26px; }
+  h1 { font-size:21px; font-weight:600; margin:0 0 6px; letter-spacing:-0.01em; }
+  .sub { font-size:13px; color:var(--text-secondary); margin:0; line-height:1.55; max-width:72ch; }
+  .controls { display:flex; gap:8px; flex:none; flex-wrap:wrap; justify-content:flex-end; }
+  button.ctl { font:inherit; font-size:12.5px; padding:7px 13px; border-radius:8px;
+    border:1px solid var(--border); background:var(--surface-1); color:var(--text-secondary); cursor:pointer; }
+  button.ctl:hover { color:var(--text-primary); }
+  button.ctl[aria-pressed="true"] { color:var(--text-primary); border-color:var(--baseline); font-weight:600; }
+
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+  .top { display:grid; grid-template-columns:1.15fr 2fr; gap:16px; margin-bottom:16px; }
+  .hero-label { font-size:12px; color:var(--text-secondary); margin-bottom:10px; }
+  .hero-fig { font-size:50px; font-weight:600; line-height:1; letter-spacing:-0.02em; }
+  .hero-unit { font-size:16px; font-weight:500; color:var(--text-secondary); margin-left:4px; }
+  .hero-note { font-size:12px; color:var(--text-muted); margin-top:10px; line-height:1.5; }
+  .tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .tile-label { font-size:11.5px; color:var(--text-secondary); margin-bottom:8px; line-height:1.35; }
+  .tile-val { font-size:26px; font-weight:600; line-height:1; letter-spacing:-0.015em; }
+  .tile-val small { font-size:12.5px; font-weight:500; color:var(--text-secondary); margin-left:3px; }
+  .tile-note { font-size:11.5px; color:var(--text-muted); margin-top:7px; }
+
+  .groupstrip { display:grid; gap:16px; margin-bottom:16px; }
+  .g-name { font-size:12px; font-weight:600; margin-bottom:6px; }
+  .g-med { font-size:20px; font-weight:600; letter-spacing:-0.01em; }
+  .g-med small { font-size:12px; font-weight:500; color:var(--text-secondary); margin-left:2px; }
+  .g-range { font-size:11.5px; color:var(--text-muted); margin-top:6px; }
+
+  h2 { font-size:14px; font-weight:600; margin:0; }
+  .chart-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px; gap:16px; }
+  .chart-sub { font-size:12px; color:var(--text-muted); margin:0 0 18px; line-height:1.5; }
+  .flagkey { font-size:11.5px; color:var(--text-secondary); display:flex; align-items:center; gap:6px; }
+
+  .plot { position:relative; }
+  .grid-layer { position:absolute; inset:0 74px 0 232px; pointer-events:none; }
+  .grid-layer .gl { position:absolute; top:0; bottom:0; width:1px; background:var(--grid); }
+  .rows { display:flex; flex-direction:column; gap:2px; }
+  .row { display:grid; grid-template-columns:220px 1fr 62px; align-items:center; gap:12px;
+    padding:1px 0; border-radius:6px; position:relative; }
+  .row:hover { background:color-mix(in srgb, var(--text-primary) 4%, transparent); }
+  .rlabel { font-size:12px; color:var(--text-secondary); text-align:right; white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center;
+    justify-content:flex-end; gap:6px; }
+  .rlabel .zn { overflow:hidden; text-overflow:ellipsis; }
+  .tag { flex:none; font-size:10px; font-weight:600; letter-spacing:.03em; color:var(--text-muted);
+    border:1px solid var(--border); border-radius:4px; padding:1px 4px; }
+  .track { position:relative; height:20px; display:flex; align-items:center; }
+  .bar { height:14px; background:var(--series-1); border-radius:0 4px 4px 0; min-width:2px; }
+  .rval { font-size:12px; font-variant-numeric:tabular-nums; color:var(--text-primary);
+    text-align:right; white-space:nowrap; font-weight:500; }
+  .axis { display:grid; grid-template-columns:220px 1fr 62px; gap:12px; margin-top:10px; }
+  .axis-inner { position:relative; height:32px; }
+  .tick { position:absolute; top:0; font-size:11px; color:var(--text-muted);
+    font-variant-numeric:tabular-nums; transform:translateX(-50%); padding-top:7px; }
+  .gridline { position:absolute; top:0; width:1px; height:6px; background:var(--grid); }
+  .axis-title { font-size:11.5px; color:var(--text-muted); text-align:center; margin-top:12px; }
+
+  .tip { position:fixed; pointer-events:none; opacity:0; transition:opacity .1s;
+    background:var(--surface-1); border:1px solid var(--baseline); border-radius:9px;
+    padding:10px 12px; font-size:12px; box-shadow:0 6px 20px rgba(0,0,0,.14);
+    z-index:50; min-width:210px; }
+  .tip.on { opacity:1; }
+  .tip-t { font-weight:600; font-size:12.5px; margin-bottom:7px; display:flex; align-items:center; gap:6px; }
+  .tip-r { display:flex; justify-content:space-between; gap:16px; color:var(--text-secondary); line-height:1.75; }
+  .tip-r b { color:var(--text-primary); font-variant-numeric:tabular-nums; font-weight:600; }
+  .tip-warn { margin-top:7px; padding-top:7px; border-top:1px solid var(--grid);
+    color:var(--text-secondary); font-size:11.5px; line-height:1.45; display:flex; gap:6px; }
+
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th, td { padding:7px 10px; text-align:right; border-bottom:1px solid var(--grid); }
+  th { font-size:11px; font-weight:600; color:var(--text-secondary); text-transform:uppercase;
+    letter-spacing:.04em; white-space:nowrap; }
+  th.l, td.l { text-align:left; }
+  td { font-variant-numeric:tabular-nums; }
+  td.c { color:var(--text-secondary); font-variant-numeric:normal; }
+  tbody tr:hover { background:color-mix(in srgb, var(--text-primary) 4%, transparent); }
+
+  .excl { margin-top:16px; font-size:12px; color:var(--text-secondary); line-height:1.6; }
+  .caveat { margin-top:16px; }
+  .caveat h3 { font-size:12.5px; font-weight:600; margin:0 0 8px; }
+  .caveat ul { margin:0; padding-left:18px; font-size:12px; color:var(--text-secondary); line-height:1.7; }
+  footer.foot { margin-top:22px; font-size:11.5px; color:var(--text-muted); line-height:1.65; }
+  @media (max-width:900px){ .top{grid-template-columns:1fr} .tiles{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+<div class="viz-root"><div class="wrap">
+
+  <header class="head">
+    <div>
+      <h1>The cheapest 3,300 hours of the year</h1>
+      <p class="sub">
+        Average day-ahead wholesale price across each market's 3,300 lowest-priced hours
+        over the latest 12 months (<span id="window"></span>, UTC). 3,300 hours &asymp; 38% of
+        the year — roughly the run-time of a load that only draws power when power is cheap.
+      </p>
+    </div>
+    <div class="controls">
+      <button class="ctl" id="btnRegion" aria-pressed="false">Show US</button>
+      <button class="ctl" id="btnView" aria-pressed="false">Table view</button>
+      <button class="ctl" id="btnTheme" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <div class="top">
+    <div class="card">
+      <div class="hero-label">Cheapest market — <span id="heroName"></span></div>
+      <div class="hero-fig" id="heroVal"></div>
+      <div class="hero-note" id="heroNote"></div>
+    </div>
+    <div class="tiles">
+      <div class="card">
+        <div class="tile-label" id="tMedLabel"></div>
+        <div class="tile-val" id="tMed"></div>
+        <div class="tile-note" id="tMedNote"></div>
+      </div>
+      <div class="card">
+        <div class="tile-label">Spread, cheapest to dearest</div>
+        <div class="tile-val" id="tSpread"></div>
+        <div class="tile-note" id="tSpreadNote"></div>
+      </div>
+      <div class="card">
+        <div class="tile-label">Negative-price hours, all markets</div>
+        <div class="tile-val" id="tNeg"></div>
+        <div class="tile-note" id="tNegNote"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="groupstrip" id="groupstrip"></div>
+
+  <div class="card" id="chartCard">
+    <div class="chart-head">
+      <h2>Average price of the 3,300 cheapest hours, by market</h2>
+      <div class="flagkey" id="flagkey"></div>
+    </div>
+    <p class="chart-sub" id="chartSub"></p>
+    <div class="plot">
+      <div class="grid-layer" id="gridLayer"></div>
+      <div class="rows" id="rows"></div>
+    </div>
+    <div class="axis"><div></div><div class="axis-inner" id="axisInner"></div><div></div></div>
+    <div class="axis-title" id="axisTitle"></div>
+  </div>
+
+  <div class="card" id="tableCard" hidden>
+    <h2>All values</h2>
+    <p class="chart-sub">Including the negatives-floored variant and the all-hours average
+      for context.</p>
+    <table>
+      <thead><tr id="thead"></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="excl" id="exclNote"></div>
+  </div>
+
+  <div class="card caveat">
+    <h3>What this covers, and what it doesn't</h3>
+    <ul>
+      <li id="cGeo"></li>
+      <li><b>Currencies are not converted.</b> Europe is EUR/MWh and the US is USD/MWh, so
+          the two regions' figures are not directly comparable to each other.</li>
+      <li><b>Day-ahead wholesale energy only</b> — excludes network charges, capacity,
+          ancillary services, levies and taxes.</li>
+      <li><b>Negative prices are included as-is</b> in the headline figure; the
+          negatives-floored variant is in the table and tooltips.</li>
+      <li id="cPartial"></li>
+    </ul>
+  </div>
+
+  <footer class="foot">
+    Europe: European Wholesale Electricity Price Data (hourly), filtered to the latest 12
+    months. US: NYISO zonal DAM LBMP · ISO-NE day-ahead hourly LMP by load zone · MISO
+    day-ahead ex-post LMP at named trading hubs · CAISO OASIS PRC_LMP at default load
+    aggregation points.
+  </footer>
+
+</div></div>
+<div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+const D = {"regions":{"eu":{"label":"Europe","short":"Europe","key":"country","keyLabel":"Country","cur":"\u20ac","unit":"EUR/MWh","window":"11 Aug 2025 \u2192 11 Aug 2026","geoNote":"Rows are countries, which in Europe coincide with day-ahead bidding zones. Germany and Luxembourg share one zone, so their figures are identical.","groupBy":null,"rows":[{"country":"Finland","avg_lowest_3300":7.58,"avg_lowest_3300_clipped":7.6,"avg_all_hours":55.56,"negative_hours":118,"valid_hours":8758,"coverage_pct":100.0},{"country":"Portugal","avg_lowest_3300":9.81,"avg_lowest_3300_clipped":9.99,"avg_all_hours":63.85,"negative_hours":530,"valid_hours":8758,"coverage_pct":100.0},{"country":"Spain","avg_lowest_3300":10.06,"avg_lowest_3300_clipped":10.28,"avg_all_hours":64.02,"negative_hours":685,"valid_hours":8758,"coverage_pct":100.0},{"country":"France","avg_lowest_3300":11.57,"avg_lowest_3300_clipped":13.66,"avg_all_hours":63.74,"negative_hours":511,"valid_hours":8758,"coverage_pct":100.0},{"country":"Estonia","avg_lowest_3300":25.14,"avg_lowest_3300_clipped":25.15,"avg_all_hours":82.02,"negative_hours":45,"valid_hours":6598,"coverage_pct":75.3},{"country":"Latvia","avg_lowest_3300":27.9,"avg_lowest_3300_clipped":27.93,"avg_all_hours":95.55,"negative_hours":69,"valid_hours":8758,"coverage_pct":100.0},{"country":"Lithuania","avg_lowest_3300":29.11,"avg_lowest_3300_clipped":29.14,"avg_all_hours":96.32,"negative_hours":74,"valid_hours":8758,"coverage_pct":100.0},{"country":"Belgium","avg_lowest_3300":42.73,"avg_lowest_3300_clipped":44.84,"avg_all_hours":89.92,"negative_hours":363,"valid_hours":8758,"coverage_pct":100.0},{"country":"Norway","avg_lowest_3300":42.82,"avg_lowest_3300_clipped":42.82,"avg_all_hours":74.64,"negative_hours":6,"valid_hours":8758,"coverage_pct":100.0},{"country":"Denmark","avg_lowest_3300":44.31,"avg_lowest_3300_clipped":44.52,"avg_all_hours":93.64,"negative_hours":161,"valid_hours":8727,"coverage_pct":99.6},{"country":"Sweden","avg_lowest_3300":46.02,"avg_lowest_3300_clipped":46.05,"avg_all_hours":54.46,"negative_hours":35,"valid_hours":3686,"coverage_pct":42.1},{"country":"Germany","avg_lowest_3300":46.62,"avg_lowest_3300_clipped":49.07,"avg_all_hours":96.55,"negative_hours":414,"valid_hours":8758,"coverage_pct":100.0},{"country":"Luxembourg","avg_lowest_3300":46.62,"avg_lowest_3300_clipped":49.07,"avg_all_hours":96.55,"negative_hours":414,"valid_hours":8758,"coverage_pct":100.0},{"country":"Netherlands","avg_lowest_3300":46.79,"avg_lowest_3300_clipped":48.92,"avg_all_hours":94.06,"negative_hours":444,"valid_hours":8758,"coverage_pct":100.0},{"country":"Greece","avg_lowest_3300":48.22,"avg_lowest_3300_clipped":48.64,"avg_all_hours":94.59,"negative_hours":415,"valid_hours":6598,"coverage_pct":75.3},{"country":"Bulgaria","avg_lowest_3300":53.72,"avg_lowest_3300_clipped":54.18,"avg_all_hours":109.01,"negative_hours":183,"valid_hours":8758,"coverage_pct":100.0},{"country":"Serbia","avg_lowest_3300":55.23,"avg_lowest_3300_clipped":55.3,"avg_all_hours":105.31,"negative_hours":42,"valid_hours":8758,"coverage_pct":100.0},{"country":"Czechia","avg_lowest_3300":56.66,"avg_lowest_3300_clipped":58.81,"avg_all_hours":104.46,"negative_hours":288,"valid_hours":8758,"coverage_pct":100.0},{"country":"Romania","avg_lowest_3300":57.88,"avg_lowest_3300_clipped":58.46,"avg_all_hours":114.11,"negative_hours":200,"valid_hours":8758,"coverage_pct":100.0},{"country":"Croatia","avg_lowest_3300":61.03,"avg_lowest_3300_clipped":62.67,"avg_all_hours":111.48,"negative_hours":236,"valid_hours":8758,"coverage_pct":100.0},{"country":"Hungary","avg_lowest_3300":61.17,"avg_lowest_3300_clipped":63.53,"avg_all_hours":117.01,"negative_hours":249,"valid_hours":8758,"coverage_pct":100.0},{"country":"Austria","avg_lowest_3300":63.33,"avg_lowest_3300_clipped":65.36,"avg_all_hours":109.16,"negative_hours":247,"valid_hours":8758,"coverage_pct":100.0},{"country":"Poland","avg_lowest_3300":63.7,"avg_lowest_3300_clipped":65.91,"avg_all_hours":111.28,"negative_hours":298,"valid_hours":8758,"coverage_pct":100.0},{"country":"Slovakia","avg_lowest_3300":65.12,"avg_lowest_3300_clipped":67.23,"avg_all_hours":109.22,"negative_hours":279,"valid_hours":6598,"coverage_pct":75.3},{"country":"United Kingdom","avg_lowest_3300":65.27,"avg_lowest_3300_clipped":65.49,"avg_all_hours":100.21,"negative_hours":141,"valid_hours":8713,"coverage_pct":99.5},{"country":"Slovenia","avg_lowest_3300":71.51,"avg_lowest_3300_clipped":72.68,"avg_all_hours":111.23,"negative_hours":171,"valid_hours":7342,"coverage_pct":83.8},{"country":"Switzerland","avg_lowest_3300":72.78,"avg_lowest_3300_clipped":75.33,"avg_all_hours":109.97,"negative_hours":250,"valid_hours":8758,"coverage_pct":100.0},{"country":"Ireland","avg_lowest_3300":74.8,"avg_lowest_3300_clipped":74.88,"avg_all_hours":123.68,"negative_hours":42,"valid_hours":8760,"coverage_pct":100.0},{"country":"Italy","avg_lowest_3300":98.51,"avg_lowest_3300_clipped":98.51,"avg_all_hours":127.49,"negative_hours":0,"valid_hours":7984,"coverage_pct":91.1}],"excluded":[{"country":"Albania","valid_hours":1724,"coverage_pct":19.7},{"country":"Montenegro","valid_hours":2206,"coverage_pct":25.2},{"country":"North Macedonia","valid_hours":2134,"coverage_pct":24.4}],"groups":null,"axisMax":100,"stats":{"n":29,"cheapest":{"country":"Finland","avg_lowest_3300":7.58,"avg_lowest_3300_clipped":7.6,"avg_all_hours":55.56,"negative_hours":118,"valid_hours":8758,"coverage_pct":100.0},"dearest":{"country":"Italy","avg_lowest_3300":98.51,"avg_lowest_3300_clipped":98.51,"avg_all_hours":127.49,"negative_hours":0,"valid_hours":7984,"coverage_pct":91.1},"median":48.22,"medianName":"Greece","spread":90.93,"ratio":13.0,"negTotal":6910,"negTopName":"Spain","negTopN":685,"nPartial":8}},"us":{"label":"United States","short":"US","key":"zone","keyLabel":"Zone","cur":"$","unit":"USD/MWh","window":"12 Aug 2025 \u2192 11 Aug 2026","geoNote":"Rows are ISO pricing zones, not states. PJM and ERCOT are absent (both require API registration), so Texas and PJM's 13-state footprint are not represented.","groupBy":"iso","rows":[{"zone":"CAISO Valley Electric","iso":"CAISO","state":"CA","avg_lowest_3300":8.12,"avg_lowest_3300_clipped":10.49,"avg_all_hours":28.82,"negative_hours":1045,"valid_hours":8760,"coverage_pct":100.0},{"zone":"CAISO SCE","iso":"CAISO","state":"CA","avg_lowest_3300":9.71,"avg_lowest_3300_clipped":11.71,"avg_all_hours":30.48,"negative_hours":992,"valid_hours":8760,"coverage_pct":100.0},{"zone":"CAISO SDG&E","iso":"CAISO","state":"CA","avg_lowest_3300":12.79,"avg_lowest_3300_clipped":14.33,"avg_all_hours":33.9,"negative_hours":779,"valid_hours":8760,"coverage_pct":100.0},{"zone":"CAISO PG&E","iso":"CAISO","state":"CA","avg_lowest_3300":18.26,"avg_lowest_3300_clipped":18.82,"avg_all_hours":35.06,"negative_hours":297,"valid_hours":8760,"coverage_pct":100.0},{"zone":"MISO Minnesota Hub","iso":"MISO","state":"MN","avg_lowest_3300":20.43,"avg_lowest_3300_clipped":20.44,"avg_all_hours":43.32,"negative_hours":19,"valid_hours":8760,"coverage_pct":100.0},{"zone":"MISO Illinois Hub","iso":"MISO","state":"IL","avg_lowest_3300":20.57,"avg_lowest_3300_clipped":20.58,"avg_all_hours":42.54,"negative_hours":6,"valid_hours":8760,"coverage_pct":100.0},{"zone":"MISO Arkansas Hub","iso":"MISO","state":"AR","avg_lowest_3300":21.27,"avg_lowest_3300_clipped":21.27,"avg_all_hours":33.91,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"MISO Mississippi Hub","iso":"MISO","state":"MS","avg_lowest_3300":21.81,"avg_lowest_3300_clipped":21.81,"avg_all_hours":35.18,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"MISO Texas Hub","iso":"MISO","state":"TX","avg_lowest_3300":23.05,"avg_lowest_3300_clipped":23.05,"avg_all_hours":37.27,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"MISO Louisiana Hub","iso":"MISO","state":"LA","avg_lowest_3300":23.11,"avg_lowest_3300_clipped":23.11,"avg_all_hours":37.32,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"MISO Indiana Hub","iso":"MISO","state":"IN","avg_lowest_3300":26.39,"avg_lowest_3300_clipped":26.39,"avg_all_hours":50.48,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"MISO Michigan Hub","iso":"MISO","state":"MI","avg_lowest_3300":26.73,"avg_lowest_3300_clipped":26.73,"avg_all_hours":48.81,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO West (A)","iso":"NYISO","state":"NY","avg_lowest_3300":28.72,"avg_lowest_3300_clipped":28.72,"avg_all_hours":59.97,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"ISO-NE Maine","iso":"ISO-NE","state":"ME","avg_lowest_3300":30.75,"avg_lowest_3300_clipped":30.75,"avg_all_hours":68.84,"negative_hours":1,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO Genesee (B)","iso":"NYISO","state":"NY","avg_lowest_3300":30.84,"avg_lowest_3300_clipped":30.84,"avg_all_hours":62.94,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO Central (C)","iso":"NYISO","state":"NY","avg_lowest_3300":32.24,"avg_lowest_3300_clipped":32.24,"avg_all_hours":66.2,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"ISO-NE Connecticut","iso":"ISO-NE","state":"CT","avg_lowest_3300":32.36,"avg_lowest_3300_clipped":32.36,"avg_all_hours":71.03,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"ISO-NE Rhode Island","iso":"ISO-NE","state":"RI","avg_lowest_3300":32.98,"avg_lowest_3300_clipped":32.98,"avg_all_hours":72.99,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO North (D)","iso":"NYISO","state":"NY","avg_lowest_3300":33.04,"avg_lowest_3300_clipped":33.04,"avg_all_hours":67.86,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"ISO-NE New Hampshire","iso":"ISO-NE","state":"NH","avg_lowest_3300":33.08,"avg_lowest_3300_clipped":33.08,"avg_all_hours":73.28,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"ISO-NE W/C Mass","iso":"ISO-NE","state":"MA","avg_lowest_3300":33.21,"avg_lowest_3300_clipped":33.21,"avg_all_hours":73.31,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"ISO-NE Vermont","iso":"ISO-NE","state":"VT","avg_lowest_3300":33.26,"avg_lowest_3300_clipped":33.26,"avg_all_hours":73.45,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO Mohawk Valley (E)","iso":"NYISO","state":"NY","avg_lowest_3300":33.34,"avg_lowest_3300_clipped":33.34,"avg_all_hours":69.26,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"ISO-NE SE Mass","iso":"ISO-NE","state":"MA","avg_lowest_3300":33.47,"avg_lowest_3300_clipped":33.47,"avg_all_hours":73.86,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"ISO-NE NE Mass / Boston","iso":"ISO-NE","state":"MA","avg_lowest_3300":33.54,"avg_lowest_3300_clipped":33.54,"avg_all_hours":74.08,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO Capital (F)","iso":"NYISO","state":"NY","avg_lowest_3300":33.65,"avg_lowest_3300_clipped":33.65,"avg_all_hours":70.37,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO Hudson Valley (G)","iso":"NYISO","state":"NY","avg_lowest_3300":34.34,"avg_lowest_3300_clipped":34.34,"avg_all_hours":71.28,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO Millwood (H)","iso":"NYISO","state":"NY","avg_lowest_3300":34.62,"avg_lowest_3300_clipped":34.62,"avg_all_hours":71.86,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO Dunwoodie (I)","iso":"NYISO","state":"NY","avg_lowest_3300":34.81,"avg_lowest_3300_clipped":34.81,"avg_all_hours":72.24,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO New York City (J)","iso":"NYISO","state":"NY","avg_lowest_3300":35.0,"avg_lowest_3300_clipped":35.0,"avg_all_hours":72.51,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},{"zone":"NYISO Long Island (K)","iso":"NYISO","state":"NY","avg_lowest_3300":35.94,"avg_lowest_3300_clipped":35.94,"avg_all_hours":71.53,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0}],"excluded":[],"groups":[{"name":"CAISO","n":4,"median":11.25,"lo":8.12,"hi":18.26},{"name":"MISO","n":8,"median":22.43,"lo":20.43,"hi":26.73},{"name":"ISO-NE","n":8,"median":33.14,"lo":30.75,"hi":33.54},{"name":"NYISO","n":11,"median":33.65,"lo":28.72,"hi":35.94}],"axisMax":40,"stats":{"n":31,"cheapest":{"zone":"CAISO Valley Electric","iso":"CAISO","state":"CA","avg_lowest_3300":8.12,"avg_lowest_3300_clipped":10.49,"avg_all_hours":28.82,"negative_hours":1045,"valid_hours":8760,"coverage_pct":100.0},"dearest":{"zone":"NYISO Long Island (K)","iso":"NYISO","state":"NY","avg_lowest_3300":35.94,"avg_lowest_3300_clipped":35.94,"avg_all_hours":71.53,"negative_hours":0,"valid_hours":8760,"coverage_pct":100.0},"median":32.24,"medianName":"NYISO Central (C)","spread":27.82,"ratio":4.4,"negTotal":3139,"negTopName":"CAISO Valley Electric","negTopN":1045,"nPartial":0}}},"bottomN":3300};
+const N = D.bottomN;
+let regionKey = "eu";
+const $ = id => document.getElementById(id);
+const reg = () => D.regions[regionKey];
+const num = v => v.toLocaleString("en-US");
+const money = v => reg().cur + v.toFixed(2);
+
+function warnGlyph(size) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 13 13" aria-hidden="true">
+    <path d="M6.5 1.2 12.2 11.4H0.8Z" fill="var(--status-warning)"/>
+    <rect x="5.8" y="4.7" width="1.4" height="3.4" rx="0.7" fill="#0b0b0b"/>
+    <rect x="5.8" y="8.9" width="1.4" height="1.4" rx="0.7" fill="#0b0b0b"/></svg>`;
+}
+
+function renderHead() {
+  const r = reg(), s = r.stats, k = r.key;
+  $("window").textContent = r.window;
+  $("heroName").textContent = s.cheapest[k];
+  $("heroVal").innerHTML = money(s.cheapest.avg_lowest_3300) +
+    `<span class="hero-unit">/MWh</span>`;
+  $("heroNote").innerHTML = s.ratio
+    ? `Its ${num(N)} cheapest hours average <b>${s.ratio}&times; less</b> than
+       ${s.dearest[k]}'s, the dearest market at ${money(s.dearest.avg_lowest_3300)}/MWh.`
+    : `The dearest market is ${s.dearest[k]} at ${money(s.dearest.avg_lowest_3300)}/MWh.`;
+  $("tMedLabel").textContent = `Median across ${s.n} markets`;
+  $("tMed").innerHTML = money(s.median) + "<small>/MWh</small>";
+  $("tMedNote").textContent = `${s.medianName} sits at the midpoint`;
+  $("tSpread").innerHTML = money(s.spread) + "<small>/MWh</small>";
+  $("tSpreadNote").textContent =
+    `${s.cheapest[k]} ${money(s.cheapest.avg_lowest_3300)} → ${s.dearest[k]} ${money(s.dearest.avg_lowest_3300)}`;
+  $("tNeg").textContent = num(s.negTotal);
+  $("tNegNote").textContent = `${s.negTopName} highest at ${num(s.negTopN)} hours`;
+  $("cGeo").innerHTML = r.geoNote;
+  $("cPartial").innerHTML = s.nPartial
+    ? `<b>${s.nPartial} market(s) have partial coverage</b> (flagged &#9650; in the chart) —
+       their window is drawn from fewer priced hours, so they are not directly comparable
+       to a full-coverage market.`
+    : `<b>Every market has 100% coverage</b> — all ${num(8760)} hours priced, nothing excluded.`;
+  $("axisTitle").innerHTML =
+    `Average price of the ${num(N)} lowest-priced hours (${r.unit})`;
+}
+
+function renderGroups() {
+  const r = reg(), el = $("groupstrip");
+  if (!r.groups) { el.innerHTML = ""; el.style.display = "none"; return; }
+  el.style.display = "grid";
+  el.style.gridTemplateColumns = `repeat(${Math.min(r.groups.length, 4)},1fr)`;
+  el.innerHTML = r.groups.map(g => `
+    <div class="card">
+      <div class="g-name">${g.name}</div>
+      <div class="g-med">${money(g.median)}<small>/MWh</small></div>
+      <div class="g-range">median of ${g.n} zone${g.n > 1 ? "s" : ""} · range
+        ${money(g.lo)}–${money(g.hi)}</div>
+    </div>`).join("");
+}
+
+function renderBars() {
+  const r = reg(), k = r.key, AXIS = r.axisMax, STEP = AXIS / 5;
+  const pct = v => (v / AXIS) * 100;
+  $("flagkey").innerHTML = r.stats.nPartial
+    ? warnGlyph(13) + "<span>partial data coverage</span>" : "";
+  $("chartSub").innerHTML = "Lower is better. Sorted cheapest first. Negative prices " +
+    "included as-is." + (r.groupBy ? " The tag on each row is the zone's state." : "");
+
+  $("gridLayer").innerHTML = "";
+  $("axisInner").innerHTML = "";
+  for (let v = 0; v <= AXIS; v += STEP) {
+    $("gridLayer").insertAdjacentHTML("beforeend", `<div class="gl" style="left:${pct(v)}%"></div>`);
+    $("axisInner").insertAdjacentHTML("beforeend",
+      `<div class="tick" style="left:${pct(v)}%">${num(Math.round(v))}</div>
+       <div class="gridline" style="left:${pct(v)}%"></div>`);
+  }
+  const rowsEl = $("rows");
+  rowsEl.innerHTML = "";
+  r.rows.forEach(row => {
+    const partial = row.coverage_pct < 100;
+    const el = document.createElement("div");
+    el.className = "row"; el.tabIndex = 0;
+    el.innerHTML =
+      `<div class="rlabel">${partial ? warnGlyph(12) : ""}<span class="zn">${row[k]}</span>
+         ${row.state ? `<span class="tag">${row.state}</span>` : ""}</div>
+       <div class="track"><div class="bar" style="width:${pct(row.avg_lowest_3300)}%"></div></div>
+       <div class="rval">${money(row.avg_lowest_3300)}</div>`;
+    const show = e => showTip(e, row);
+    el.addEventListener("mouseenter", show);
+    el.addEventListener("mousemove", show);
+    el.addEventListener("focus", show);
+    el.addEventListener("mouseleave", hideTip);
+    el.addEventListener("blur", hideTip);
+    rowsEl.appendChild(el);
+  });
+}
+
+const tip = $("tip");
+function showTip(e, row) {
+  const r = reg(), k = r.key, partial = row.coverage_pct < 100;
+  tip.innerHTML =
+    `<div class="tip-t">${partial ? warnGlyph(12) : ""}${row[k]}</div>` +
+    (row.iso ? `<div class="tip-r"><span>ISO / state</span><b>${row.iso} · ${row.state}</b></div>` : "") +
+    `<div class="tip-r"><span>Avg of lowest ${num(N)} h</span><b>${money(row.avg_lowest_3300)}</b></div>
+     <div class="tip-r"><span>Negatives floored at 0</span><b>${money(row.avg_lowest_3300_clipped)}</b></div>
+     <div class="tip-r"><span>Avg, all hours</span><b>${money(row.avg_all_hours)}</b></div>
+     <div class="tip-r"><span>Priced hours in window</span><b>${num(row.valid_hours)}</b></div>` +
+    (partial ? `<div class="tip-warn">${warnGlyph(12)}<span>Only ${row.coverage_pct}% coverage —
+       drawn from ${num(row.valid_hours)} priced hours, so not directly comparable to a
+       full-coverage market.</span></div>` : "");
+  tip.classList.add("on"); tip.setAttribute("aria-hidden", "false");
+  const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+  let x, y;
+  if (e.type === "focus") {
+    const b = e.currentTarget.getBoundingClientRect();
+    x = Math.min(b.left + 240, innerWidth - w - pad); y = b.top - h - 6;
+  } else {
+    x = e.clientX + pad; y = e.clientY + pad;
+    if (x + w > innerWidth - pad) x = e.clientX - w - pad;
+    if (y + h > innerHeight - pad) y = e.clientY - h - pad;
+  }
+  tip.style.left = Math.max(pad, x) + "px";
+  tip.style.top = Math.max(pad, y) + "px";
+}
+function hideTip(){ tip.classList.remove("on"); tip.setAttribute("aria-hidden","true"); }
+
+function renderTable() {
+  const r = reg(), k = r.key;
+  const cols = [{h: r.keyLabel, l: true}];
+  if (r.groupBy) cols.push({h: "ISO", l: true}, {h: "State", l: true});
+  cols.push(
+    {h: `Avg of lowest ${num(N)} h`},
+    {h: "Negatives floored"},
+    {h: "Avg, all hours"},
+    {h: "Priced hours"},
+    {h: "Coverage"});
+  $("thead").innerHTML = cols.map(c =>
+    `<th class="${c.l ? "l" : ""}">${c.h}</th>`).join("");
+  $("tbody").innerHTML = r.rows.map(row => {
+    const partial = row.coverage_pct < 100;
+    let cells = `<td class="l">${row[k]}</td>`;
+    if (r.groupBy) cells += `<td class="l c">${row.iso}</td><td class="l c">${row.state}</td>`;
+    cells += `<td>${money(row.avg_lowest_3300)}</td>
+      <td>${money(row.avg_lowest_3300_clipped)}</td>
+      <td>${money(row.avg_all_hours)}</td>
+      <td>${num(row.valid_hours)}</td>
+      <td class="c">${row.coverage_pct}%${partial ? " — partial" : ""}</td>`;
+    return `<tr>${cells}</tr>`;
+  }).join("");
+  $("exclNote").innerHTML = r.excluded.length
+    ? `<b>Excluded — fewer than ${num(N)} priced hours:</b> ` + r.excluded.map(e =>
+        `${e.country || e.zone} (${num(e.valid_hours)} h, ${e.coverage_pct}%)`).join(" · ")
+    : `<b>No markets excluded</b> — every market cleared ${num(N)} priced hours.`;
+}
+
+function renderAll() { renderHead(); renderGroups(); renderBars(); renderTable(); }
+
+$("btnRegion").addEventListener("click", () => {
+  const toUS = regionKey === "eu";
+  regionKey = toUS ? "us" : "eu";
+  $("btnRegion").setAttribute("aria-pressed", String(toUS));
+  $("btnRegion").textContent = toUS ? "Show Europe" : "Show US";
+  hideTip(); renderAll();
+});
+$("btnView").addEventListener("click", () => {
+  const t = $("btnView").getAttribute("aria-pressed") === "false";
+  $("btnView").setAttribute("aria-pressed", String(t));
+  $("btnView").textContent = t ? "Chart view" : "Table view";
+  $("tableCard").hidden = !t;
+  $("chartCard").hidden = t;
+  $("groupstrip").style.display = t ? "none" : (reg().groups ? "grid" : "none");
+  if (t) hideTip();
+});
+$("btnTheme").addEventListener("click", () => {
+  const d = $("btnTheme").getAttribute("aria-pressed") === "false";
+  $("btnTheme").setAttribute("aria-pressed", String(d));
+  $("btnTheme").textContent = d ? "Light" : "Dark";
+  document.documentElement.setAttribute("data-theme", d ? "dark" : "light");
+});
+
+renderAll();
+</script>
+</body>
+</html>
