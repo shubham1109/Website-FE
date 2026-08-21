@@ -825,7 +825,7 @@
         `<div class="tip-t">${curve.name}</div>
      <div class="tip-r"><span>Operating hours/day</span><b>${hd(curve.hours[i])}</b></div>
      <div class="tip-r"><span>LCOA</span><b>${usd(curve.lcoa[i])}</b></div>
-     <div class="tip-r"><span>Electricity</span><b>${curve.elec[i].toFixed(4)} $/kWh</b></div>`;
+     <div class="tip-r"><span>Average price of electricity</span><b>${curve.elec[i].toFixed(4)} $/kWh</b></div>`;
       tip.classList.add("on"); tip.setAttribute("aria-hidden", "false");
       const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
       let x = ev.clientX + pad, y = ev.clientY + pad;
