@@ -59,7 +59,7 @@ const Hero = () => {
               color: '#F5F5F5',
             }}
           >
-            Ammonia Production,
+            Green Molecules,
           </span>
           <span
             className="block font-bold tracking-tight"
@@ -77,7 +77,7 @@ const Hero = () => {
           className="hero-animate text-center max-w-[640px] mt-6 opacity-0"
           style={{ color: '#A3A3A3', fontSize: '18px', lineHeight: 1.6 }}
         >
-          Powered by non-thermal plasma synthesis, our modular reactors deliver carbon-free ammonia exactly where you need it.
+          Powered by non-thermal plasma synthesis, our modular reactors deliver green molecules at the cost of grey.
         </p>
 
         <div className="hero-animate flex items-center gap-4 mt-8 opacity-0">
