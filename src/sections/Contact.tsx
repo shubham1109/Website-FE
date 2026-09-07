@@ -159,7 +159,7 @@ const Contact = () => {
                 color: '#F5F5F5',
               }}
             >
-              Let&rsquo;s Build a Carbon-Free Future with Green Ammonia.
+              Let&rsquo;s Build a sustainable future.
             </h2>
             {/* <p
               className="mt-4"
