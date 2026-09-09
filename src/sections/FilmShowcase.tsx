@@ -8,7 +8,7 @@ const FilmShowcase = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const [wordIndex, setWordIndex] = useState(0);
-  const words = ['Fertilizer', 'Food', 'Energy', 'Shipping'];
+  const words = ['Energy', 'Fertilizer', 'Shipping'];
 
   useEffect(() => {
     const interval = setInterval(() => {
