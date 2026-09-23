@@ -5,10 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 1.8, suffix: '%', label: 'of Global CO2 from Ammonia Production', decimals: 1 },
+  { value: 1.8, suffix: '%', label: 'of Global CO2 from Grey Molecule Production', decimals: 1 },
   { value: 98, suffix: '%', label: 'Reduction with Our Technology', decimals: 0 },
-  { value: 200, suffix: 'M', label: 'Tons of Grey Ammonia Produced Yearly', decimals: 0 },
-  { value: 0, suffix: '', label: 'Carbon in Green Ammonia', decimals: 0 },
+  { value: 200, suffix: 'M', label: 'Tons of Grey Molecules Produced Yearly', decimals: 0 },
+  { value: 0, suffix: '', label: 'Carbon in Green Molecules', decimals: 0 },
 ];
 
 const Impact = () => {
@@ -152,17 +152,17 @@ const Impact = () => {
             className="text-lg font-medium mb-8"
             style={{ color: '#F5F5F5' }}
           >
-            Ammonia Production: CO2 Emissions Comparison
+            Molecule Production: CO2 Emissions Comparison
           </h3>
 
-          {/* Grey Ammonia Bar */}
+          {/* Grey Production Bar */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm" style={{ color: '#A3A3A3' }}>
-                Grey Ammonia (Haber-Bosch + SMR)
+                Grey Production (Haber-Bosch + SMR)
               </span>
               <span className="text-sm font-mono" style={{ color: '#A3A3A3' }}>
-                ~1.9 t CO2 / t NH3
+                ~1.9 t CO2 / t product
               </span>
             </div>
             <div
@@ -179,14 +179,14 @@ const Impact = () => {
             </div>
           </div>
 
-          {/* Blue Ammonia Bar */}
+          {/* Blue Production Bar */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm" style={{ color: '#A3A3A3' }}>
-                Blue Ammonia (Haber-Bosch + CCS)
+                Blue Production (Haber-Bosch + CCS)
               </span>
               <span className="text-sm font-mono" style={{ color: '#A3A3A3' }}>
-                ~0.4 t CO2 / t NH3
+                ~0.4 t CO2 / t product
               </span>
             </div>
             <div
@@ -203,14 +203,14 @@ const Impact = () => {
             </div>
           </div>
 
-          {/* Green Ammonia Bar */}
+          {/* Green Production Bar */}
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium" style={{ color: '#4ADE80' }}>
-                Green Ammonia (Faraday Non-Thermal Plasma)
+                Green Production (Faraday Non-Thermal Plasma)
               </span>
               <span className="text-sm font-mono" style={{ color: '#4ADE80' }}>
-                ~0.0 t CO2 / t NH3
+                ~0.0 t CO2 / t product
               </span>
             </div>
             <div

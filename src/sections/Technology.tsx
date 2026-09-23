@@ -9,7 +9,7 @@ const cards = [
   {
     icon: Zap,
     title: 'Non-Thermal Plasma Synthesis',
-    desc: 'We synthesize ammonia directly from air and water. Designed for the renewable era, our technology operates near room temperature and pressure, offering unmatched flexibility to seamlessly integrate with intermittent green energy.',
+    desc: 'We synthesize green molecules directly from air and water. Designed for the renewable era, our technology operates near room temperature and pressure, offering unmatched flexibility to seamlessly integrate with intermittent green energy.',
   },
   {
     icon: Container,
