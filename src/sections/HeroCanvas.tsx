@@ -42,32 +42,19 @@ const HeroCanvas = () => {
       'rgba(187, 247, 208, 0.4)',
     ];
 
-    const TEXT = 'NH3';
-
-    function drawText() {
+    function drawShape() {
       const tSize = 800;
-      const tCanvas = document.createElement('canvas');
-      tCanvas.width = tSize;
-      tCanvas.height = tSize;
-      const tCtx = tCanvas.getContext('2d');
-      if (!tCtx) return;
-
-      const fontSize = Math.max(180, Math.min(400, width / 3));
-      tCtx.font = '900 ' + fontSize + 'px "Inter", sans-serif';
-      tCtx.fillStyle = 'white';
-      tCtx.textBaseline = 'middle';
-      tCtx.textAlign = 'center';
-      tCtx.clearRect(0, 0, tSize, tSize);
-      tCtx.fillText(TEXT, tSize / 2, tSize / 2);
-
-      const imageData = tCtx.getImageData(0, 0, tSize, tSize).data;
+      const radius = Math.max(90, Math.min(200, width / 6));
       const pixels: { x: number; y: number }[] = [];
 
-      for (let i = 0; i < imageData.length; i += 32) {
-        const x = (i / 4) % tSize;
-        const y = Math.floor((i / 4) / tSize);
-        if (imageData[i + 3] >= 128) {
-          pixels.push({ x, y });
+      // Sample a filled disc on the same 800x800 grid the text used to occupy
+      for (let y = 0; y < tSize; y++) {
+        for (let x = 0; x < tSize; x += 8) {
+          const dx = x - tSize / 2;
+          const dy = y - tSize / 2;
+          if (dx * dx + dy * dy <= radius * radius) {
+            pixels.push({ x, y });
+          }
         }
       }
 
@@ -98,7 +85,7 @@ const HeroCanvas = () => {
       ORB_RADIUS_X = width / 4;
       ORB_RADIUS_Y = height / 5;
 
-      drawText();
+      drawShape();
       buildParticles();
     }
 
@@ -147,11 +134,8 @@ const HeroCanvas = () => {
       animId = requestAnimationFrame(render);
     }
 
-    // Wait for font to load before drawing text
-    document.fonts.ready.then(() => {
-      init();
-      render();
-    });
+    init();
+    render();
 
     window.addEventListener('resize', init);
 
