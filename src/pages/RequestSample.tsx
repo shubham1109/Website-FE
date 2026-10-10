@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { countries } from '../lib/countries';
 
 const labelClass = 'block text-xs font-medium tracking-[0.05em] uppercase mb-2';
@@ -19,8 +18,6 @@ export default function RequestSample() {
   const [requirement, setRequirement] = useState('');
   const [botcheck, setBotcheck] = useState(false);
 
-  const { executeRecaptcha } = useGoogleReCaptcha();
-
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = 'Request a Sample | Faraday Earth';
@@ -32,13 +29,6 @@ export default function RequestSample() {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (!executeRecaptcha) {
-        setErrorMsg('reCAPTCHA not ready. Please try again.');
-        return;
-      }
-
-      const captchaToken = await executeRecaptcha('sample_request');
-
       setIsSubmitting(true);
       setErrorMsg('');
 
@@ -59,7 +49,6 @@ export default function RequestSample() {
             country,
             application_requirement: requirement,
             botcheck,
-            'g-recaptcha-response': captchaToken,
           }),
         });
 
@@ -81,7 +70,7 @@ export default function RequestSample() {
         setIsSubmitting(false);
       }
     },
-    [executeRecaptcha, name, email, company, country, requirement, botcheck]
+    [name, email, company, country, requirement, botcheck]
   );
 
   return (
