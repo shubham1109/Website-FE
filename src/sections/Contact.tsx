@@ -15,6 +15,7 @@ const Contact = () => {
   const [email, setEmail] = useState('');
   const [country, setCountry] = useState('');
   const [purpose, setPurpose] = useState('');
+  const [botcheck, setBotcheck] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -74,6 +75,7 @@ const Contact = () => {
           email,
           country,
           purpose,
+          botcheck,
         }),
       });
 
@@ -84,6 +86,7 @@ const Contact = () => {
         setEmail('');
         setCountry('');
         setPurpose('');
+        setBotcheck(false);
 
         setTimeout(() => setSubmitted(false), 5000);
       } else {
@@ -94,7 +97,7 @@ const Contact = () => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [name, email, country, purpose]);
+  }, [name, email, country, purpose, botcheck]);
 
   return (
     <section
@@ -159,6 +162,18 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Web3Forms honeypot: hidden from humans, bots that fill it get dropped */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  checked={botcheck}
+                  onChange={(e) => setBotcheck(e.target.checked)}
+                  className="hidden"
+                  style={{ display: 'none' }}
+                  aria-hidden="true"
+                />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs font-medium tracking-[0.05em] uppercase mb-2" style={{ color: '#A3A3A3' }}>

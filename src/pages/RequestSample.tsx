@@ -17,6 +17,7 @@ export default function RequestSample() {
   const [company, setCompany] = useState('');
   const [country, setCountry] = useState('');
   const [requirement, setRequirement] = useState('');
+  const [botcheck, setBotcheck] = useState(false);
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -57,6 +58,7 @@ export default function RequestSample() {
             company,
             country,
             application_requirement: requirement,
+            botcheck,
             'g-recaptcha-response': captchaToken,
           }),
         });
@@ -69,6 +71,7 @@ export default function RequestSample() {
           setCompany('');
           setCountry('');
           setRequirement('');
+          setBotcheck(false);
         } else {
           setErrorMsg(result.message || 'Something went wrong.');
         }
@@ -78,7 +81,7 @@ export default function RequestSample() {
         setIsSubmitting(false);
       }
     },
-    [executeRecaptcha, name, email, company, country, requirement]
+    [executeRecaptcha, name, email, company, country, requirement, botcheck]
   );
 
   return (
@@ -104,8 +107,7 @@ export default function RequestSample() {
               className="mt-4 max-w-[480px]"
               style={{ color: '#A3A3A3', fontSize: '16px', lineHeight: 1.6 }}
             >
-              Tell us about your application and we will get in touch to arrange a sample of
-              green molecules produced with our non-thermal plasma reactors.
+              Tell us about your application and we will get in touch.
             </p>
 
             <div className="mt-12 space-y-6">
@@ -151,6 +153,18 @@ export default function RequestSample() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Web3Forms honeypot: hidden from humans, bots that fill it get dropped */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  checked={botcheck}
+                  onChange={(e) => setBotcheck(e.target.checked)}
+                  className="hidden"
+                  style={{ display: 'none' }}
+                  aria-hidden="true"
+                />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="rs-name" className={labelClass} style={{ color: '#A3A3A3' }}>
