@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { countries } from '../lib/countries';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,8 +15,6 @@ const Contact = () => {
   const [email, setEmail] = useState('');
   const [country, setCountry] = useState('');
   const [purpose, setPurpose] = useState('');
-
-  const { executeRecaptcha } = useGoogleReCaptcha();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -61,13 +58,6 @@ const Contact = () => {
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!executeRecaptcha) {
-      setErrorMsg('reCAPTCHA not ready. Please try again.');
-      return;
-    }
-
-    const captchaToken = await executeRecaptcha('contact_form');
-
     setIsSubmitting(true);
     setErrorMsg('');
 
@@ -84,7 +74,6 @@ const Contact = () => {
           email,
           country,
           purpose,
-          'g-recaptcha-response': captchaToken,
         }),
       });
 
@@ -100,12 +89,12 @@ const Contact = () => {
       } else {
         setErrorMsg(result.message || 'Something went wrong.');
       }
-    } catch (error) {
+    } catch {
       setErrorMsg('Failed to send message.');
     } finally {
       setIsSubmitting(false);
     }
-  }, [executeRecaptcha, name, email, country, purpose]);
+  }, [name, email, country, purpose]);
 
   return (
     <section
