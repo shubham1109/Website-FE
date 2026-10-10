@@ -9,6 +9,7 @@ import Navigation from './sections/Navigation';
 import Footer from './sections/Footer';
 import Home from './pages/Home';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import RequestSample from './pages/RequestSample';
 import CookieConsent from './components/CookieConsent';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -53,6 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/request-sample" element={<RequestSample />} />
         </Routes>
         <Footer />
         <CookieConsent />

@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,10 +17,23 @@ const Navigation = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+    if (!isHome) {
+      navigate(`/#${targetId}`);
+      return;
+    }
     const el = document.getElementById(targetId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (!isHome) {
+      navigate('/');
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -28,7 +45,7 @@ const Navigation = () => {
     >
       <div className="w-full max-w-[1280px] mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center">
+        <a href="/" onClick={handleLogoClick} className="flex items-center">
           <img src="/images/logo.png" alt="Faraday Earth" className="w-auto object-contain" style={{ height: 'calc(2.5rem * 1.3)' }} />
         </a>
 

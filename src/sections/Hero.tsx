@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { Link } from 'react-router';
 import HeroCanvas from './HeroCanvas';
 //import { Play } from 'lucide-react';
 
@@ -81,6 +82,12 @@ const Hero = () => {
         </p>
 
         <div className="hero-animate flex items-center gap-4 mt-8 opacity-0">
+          <Link
+            to="/request-sample"
+            className="bg-[#4ADE80] text-[#0A0A0A] font-medium px-8 py-3 rounded-full hover:scale-[1.02] hover:brightness-110 transition-all duration-300"
+          >
+            Request a Sample
+          </Link>
           {/* <button
             onClick={handleExplore}
             className="bg-[#4ADE80] text-[#0A0A0A] font-medium px-8 py-3 rounded-full hover:scale-[1.02] hover:brightness-110 transition-all duration-300"
