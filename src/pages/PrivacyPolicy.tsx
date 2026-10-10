@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
         
         <div className="space-y-8 text-[#A3A3A3] leading-relaxed">
           <p>
-            <strong>Last Updated: {new Date().toLocaleDateString()}</strong>
+            <strong>Last Updated: October 10, 2026</strong>
           </p>
 
           <section>
@@ -29,7 +29,10 @@ export default function PrivacyPolicy() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>
-                <strong>Personal Data:</strong> Personally identifiable information, such as your name, email address, and country, that you voluntarily give to us when you submit a contact form.
+                <strong>Personal Data:</strong> Personally identifiable information, such as your name, email address, company name, and country, that you voluntarily give to us when you submit our contact form or sample request form.
+              </li>
+              <li>
+                <strong>Sample Request Details:</strong> Information you provide about your intended application, such as required quantities, specifications, and timelines, when you request a sample. We use this solely to evaluate and respond to your request.
               </li>
               <li>
                 <strong>Derivative Data:</strong> Information our servers automatically collect when you access the Site, such as your IP address, your browser type, your operating system, and the pages you have viewed.
@@ -43,7 +46,7 @@ export default function PrivacyPolicy() {
               Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Site to:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Respond to your customer service requests and support needs.</li>
+              <li>Respond to your inquiries, sample requests, and support needs.</li>
               <li>Improve our website and services based on user feedback.</li>
               <li>Send you administrative information, such as updates to our terms, conditions, and policies.</li>
               <li>Protect against fraud, unauthorized transactions, and manage security through CAPTCHA services.</li>
